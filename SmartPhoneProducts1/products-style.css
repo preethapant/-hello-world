@@ -1,0 +1,25 @@
+/* General */  
+body{width: 800px; margin: 0 auto;}
+/* Typography */  
+h1,h2{text-align: center;}
+h1{font-family: Impact;}
+h2{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+/* block styling */  
+body > div{border: 5px solid black;
+    display: flex;}
+/* Form styling */  
+main{ color: black;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+   
+    background-image: url("./images/phone_globe.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* Styling the products display */ 
+img{ height:200px; width:200px;}
+
+
+
+
