@@ -1,6 +1,6 @@
 <span id="output_span"></span>
 <script>
-     var age; age = 20;
+    /* var age; age = 20;
 
     var fav_num; fav_num = 2;
 
@@ -12,15 +12,26 @@
     
  var n=20;
   var m=2;
-  document.write(n * ++m );
-  document.write(n * m++);
- 
+  document.write(result = n * ++m );
+  document.write(result = n * m++);
+ */
   
 
-//first_name= "Preetha";
-//last_name= "Pant";
-//document.write(first_name+ ' ' +last_name);
-//document.write(${first_name} ${last_name} I have \$${1+2}`);
+  first_name = "Preetha";
+last_name = 'Pant';
+
+document.write(`${first_name} ${last_name}`);
+
+document.write(`
+<table border="1">
+    <tr><th>Line</th><th>Name</th></tr>
+    <tr><td>1.</td><td>${first_name}</td></tr>
+    <tr><td>2.</td><td><br />${first_name}</td></tr>
+    <tr><td>3.</td><td>\n${first_name}</td></tr>
+    <tr><td>4.</td><td>'\n${first_name}'</td></tr>
+    <tr><td>5.</td><td>"\n${first_name}"</td></tr>
+</table>
+`);
 
 </script>
 
