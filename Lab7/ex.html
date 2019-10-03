@@ -1,13 +1,74 @@
 <script>
+    //Exercise 3 and 4
     name = "Preetha";
 
-likesBeer = false ;
+    likesBeer = false;
+    document.write(name + ' does ');
+    if (likesBeer == false) {
+        document.write('not ');
+        document.write('ever ');
+        document.write('like beer!')
+    } else {
+        document.write('like beer! ');
+    }
 
-document.write(name + ' does ');
+    //Exercise 5: if-else if
+    // -- Price depends on quantity
+    quantity = 40;
+    if (quantity >= 40) {
+        price = 80;
+    } else if (quantity >= 20) {
+        price = 40;
+    } else if (quantity > 0) {
+        price = 20;
+    } else {
+        price = "no purchase";
+    }
+    console.log(quantity + ' products will cost ' + price + ' each.');
+    
+    //Extra Credit
+    var month = "October";
+    var num_days;
+    switch (month) {
+        case "January":
+            num_days = 31;
+            break;
+        case "February":
+            num_days = 28;
+            break;
+        case "March":
+            num_days = 31;
+            break;
+        case "April":
+            num_days = 30;
+            break;
+        case "May":
+            num_days = 31;
+            break;
+        case "June":
+            num_days = 30;
+            break;
+        case "July":
+            num_days = 31;
+            break;
+        case "August":
+            num_days = 31;
+            break;
+        case "September":
+            num_days = 30;
+            break;
+        case "October":
+            num_days = 31;
+            break;
+        case "November":
+            num_days = 30;
+            break;
+        case "December":
+            num_days = 31;
+            break;
+        default:
+            month = -1;
+    }
+    document.getElementById("demo").innerHTML = "The month is " + month + " and there are " + num_days + " days in this month";
 
-if ( !likesBeer ){  document.write('not '); document.write('ever '); }
-
-document.write('like beer!');
-
-  
 </script>
