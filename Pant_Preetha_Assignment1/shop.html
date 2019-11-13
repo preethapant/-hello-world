@@ -1,0 +1,61 @@
+<head>
+    <link href="style.css" rel="stylesheet">
+</head>
+<header>
+        <h1> The Beach Store</h1>
+</header>
+<body>
+    <link a href="invoice.html">
+ <div>
+   <main>
+        <section class="item">
+            <h2>Towels</h2>
+            <p><b></b>Price: &dollar; 10.00</p>
+            <img src="./images/towels.jpg">
+        </section>
+        <section class="item">
+            <h2>Swimsuit</h2>
+            <p><b>Price: &dollar; 30.00</b></p>
+            <img src="./images/swimsuit.jpg">
+        </section>
+        <section class="item">
+            <h2>Sunscreen</h2>
+            <p><b>Price: &dollar; 7.00</b></p>
+            <img src="./images/sunscreen.jpg">
+        </section>
+        <section class="item">
+            <h2>Hat</h2>
+            <p><b>Price: &dollar; 12.00</b></p>
+            <img src="./images/hat.jpg">
+        </section>
+        <section class="item">
+            <h2>Sunglasses</h2>
+            <p><b>Price: &dollar; 45.00</b></p>
+            <img src="./images/sunglasses.jpg">
+        </section>
+        <main>
+
+            <script>
+                 for (i = 0; i < products.length; i++) {
+                        document.write(`
+                            <section class="item">
+                                <h2>${products[i].brand}</h2>
+                                <p>$${products[i].price}</p>
+                                <label id="quantity${i}_label"}">Quantity</label>
+                                <input type="text" placeholder="0" name="quantity${i}" 
+                                onkeyup="checkQuantityTextbox(this);">
+                                <img src="${products[i].image}">
+                            </section>
+                        `);
+                    };
+            </script>
+        </main>
+    </div>
+
+    <footer>
+        <h1>One Stop Store for Beach Neccessities</h1>
+        <input type="submit" value="Purchase!" name="purchase_submit">
+    </footer>
+</body>
+
+</html>

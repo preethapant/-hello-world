@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link href="products-style.css" rel="stylesheet">
+    <script src="./product_data.js">
+    console,log(Products);
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Preetha's Beach Store</h1>
+    </header>
+
+    <div>
+        <main>
+
+            <script>
+                 for (i = 0; i < products.length; i++) {
+                        document.write(`
+                            <section class="item">
+                                <h2>${products[i].brand}</h2>
+                                <p>$${products[i].price}</p>
+                                <label id="quantity${i}_label"}">Quantity</label>
+                                <input type="text" placeholder="0" name="quantity${i}" 
+                                onkeyup="checkQuantityTextbox(this);">
+                                <img src="${products[i].image}">
+                            </section>
+                        `);
+                    };
+            </script>
+        </main>
+    </div>
+
+    <footer>
+        <h1>One Stop Store for Beach Neccessities</h1>
+        <input type="submit" value="Purchase!" name="purchase_submit">
+    </footer>
+</body>
+
+</html>
