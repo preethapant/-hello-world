@@ -18,6 +18,7 @@
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
 
+    //Loads to invoice page when form is correctly submitted and ensures that the user inputs a number in at least one quantity 
     window.onload = function () {
         let params = (new URL(document.location)).searchParams; // get the query string which has the form data
         // form was submitted so check that quantities are valid then redirect to invoice if ok.

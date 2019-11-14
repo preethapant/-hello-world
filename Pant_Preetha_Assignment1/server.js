@@ -4,13 +4,13 @@
 const querystring = require('querystring');//require that the server responds to errors
 var products = require('./public/product_data.js');//take data from product_data.js in the public folder
 
-var express = require('express');//use the express package
-var myParser = require("body-parser");
+var express = require('express');// start express package to set up server
+var myParser = require("body-parser");//start body-parser to set up server
 var fs = require('fs');
-var app = express();
+var app = express();//starts express
 app.all('*', function (request, response, next) {
-    console.log(request.method + ' to ' + request.path);
-    next();
+    console.log(request.method + ' to ' + request.path);//respond to HTTP request by sending type of request and the path of request
+    next();//calls the middleware function
 });
 
 app.use(myParser.urlencoded({ extended: true }));

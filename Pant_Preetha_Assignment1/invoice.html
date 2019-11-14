@@ -2,21 +2,21 @@
 <script src="./product_data.js" type=""></script>
 <script>
 
-  let params = (new URL(document.location)).searchParams;
+  let params = (new URL(document.location)).searchParams;//Parses out the URL starting with the file name, quantity and purchase submit.
   //getting the quantity amount from product_data.js for data inputted
   //checks if the quantity is added to the form, if ok proceeds to making invoice if not give a pop-up message "no form submitted"
   var quantities = [];
   if (params.has('purchase_submit')) {
     for (i = 0; i < products.length; i++) {
       if (params.has(`quantity${i}`)) {
-        a_qty = params.get(`quantity${i}`);
+        a_qty = params.get(`quantity${i}`);//Gets the quanitity of products selected
         quantities[i] = a_qty;
       }
     }
   } else {
     document.write('no form submitted');
   }
-  console.log(quantities);
+  console.log(quantities);//displays quantities
 </script>
 
 <head>
