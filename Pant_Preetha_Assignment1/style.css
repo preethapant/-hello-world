@@ -17,7 +17,8 @@ header, footer {
 	border-top-color: black;
 	border-right-color: black;
 	border-bottom-color: black;
-	border-left-color: black;
+    border-left-color: black;
+    
 }
 
 
@@ -72,3 +73,10 @@ table {
 	border-bottom-color: black;
 	border-left-color: black;
 }
+/* purchase button */
+input[type=submit] {
+    width: 10em;  height: 3em;
+    font-size: 20px;
+    color: black;
+    float: bottom;
+  }
