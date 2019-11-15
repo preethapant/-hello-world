@@ -1,7 +1,7 @@
 <script>/*PREETHA PANT, 11/14/19, creating a form to add quantities and validating if the right quantity is being added*/</script>
 <script src="product_data.js"></script>
 <script>
-    //adapted code from Assignment 1 example2: used to check if the data entry is valid, must be a number and an integer 
+    //adapted code from Assignment 1 example: used to check if the data entry is valid, must be a number and an integer 
     function isNonNegInt(q, return_errors = false) {
         errors = []; // assume no errors at first
         if (q == '') q = 0; // handle blank inputs as if they are 0
@@ -15,7 +15,7 @@
         errs = isNonNegInt(theTextbox.value, true);
         if (errs.length == 0) errs = ['You want:'];//telling the value entry is set
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
-        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");//if correct data entry then documents the 
     }
 
     //Loads to invoice page when form is correctly submitted and ensures that the user inputs a number in at least one quantity 
@@ -25,13 +25,13 @@
         if (params.has('purchase_submit')) {
             has_errors = false; // assume quantities are valid from the start
             total_qty = 0; // need to check if something was selected so we will look if the total > 0
-            for (i = 0; i < products.length; i++) {
-                if (params.has(`quantity${i}`)) {
+            for (i = 0; i < products.length; i++) {//checking each of the products in the array
+                if (params.has(`quantity${i}`)) {//if not undefined then move on to the next if statement
                     a_qty = params.get(`quantity${i}`);
                     // make textboxes sticky in case of invalid data
                     product_selection_form[`quantity${i}`].value = a_qty;
-                    total_qty += a_qty;
-                    if (!isNonNegInt(a_qty)) {
+                    total_qty += a_qty;//total quantity is addition of each individual quantity
+                    if (!isNonNegInt(a_qty)) {//checks for not nonnegInt
                         has_errors = true; // oops, invalid quantity
                         checkQuantityTextbox(product_selection_form[`quantity${i}`]); // show where the error is
                     }
@@ -39,9 +39,9 @@
             }
             // Now respond to errors or redirect to invoice if all is ok
             if (has_errors) {
-                alert("Please enter only valid quantities!");
+                alert("Please enter only valid quantities!");//pop-up when non integers and letters are entered
             } else if (total_qty == 0) { // no quantity selections, just give a general alert
-                alert("Please select some quantities!");
+                alert("Please select some quantities!");//pop-up when no value is added
             } 
         }
     }
@@ -65,10 +65,13 @@
         <h1>The Beach Store</h1>
     </header>
     <div>
-        <script>//code adapted from Example from Assignment : used form to insert textboox that includes quantity, form displays the product price and image got from product_data.js </script>
+        <script>//code adapted from Example from Assignment : used form to insert textboox that includes quantity, form displays the product price and image got from product_data.js 
+        //loops through the 
+        </script>
 
         <body>
-            <form name="product_selection_form" action="/process_form" method="GET">
+            <form name="product_selection_form" action="/process_form" method="GET"> 
+                <script>//use GET to access the prodouct info and through form</script>
                 
                 <div>
                     <main>
@@ -84,7 +87,7 @@
                                             <img src="./images/${products[i].image}">
                                         </section>
                                     `);
-                            }    
+                            }    //Above is the loop that visually displays the product name, price,image and quantity from the array
                         </script> 
                         
                       
