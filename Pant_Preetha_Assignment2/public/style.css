@@ -1,0 +1,82 @@
+html {
+    font-family: Monotype Corsiva;
+    font-size: 25px; /* text font size (price and product)*/
+    background-position: center; /* Center the Image */
+  }
+
+/* Header footer design */
+header, footer {
+    text-align: center;
+    font-size: 25px;
+    width: auto;
+    background-color: lightcyan;
+    border-top-style: outset;
+	border-right-style: outset;
+	border-bottom-style: outset;
+	border-left-style: outset;
+	border-top-color: black;
+	border-right-color: black;
+	border-bottom-color: black;
+    border-left-color: black;
+    
+}
+
+
+/* product name is header 2 */
+h2 {
+    color: orangered;
+    font-size: 50px;
+    margin: 0;
+    padding: 2px;
+    padding-left: 14px;
+}
+
+/* size and color of home page*/
+ img {
+     /* image size */
+    width: 500px;
+    height: 250px; 
+    /* image border stlye */
+    border-style: solid;
+    border-width: 4px;
+    border-color:blueviolet;
+}
+
+main{  color: black;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around
+}
+/*styling product image*/
+img{ height:250; width:250px;}
+html{background-color: violet;}
+/* styling the invoice table */
+table {
+    /* size and color of the invoice table*/
+    background-color: gold;
+    text-align: center;
+    margin: auto;
+    height: 600px;
+    width: 1000px;
+    /* space surrounding invoice table */
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    /* (black) border */
+    border-top-style: outset;
+	border-right-style: outset;
+	border-bottom-style: outset;
+	border-left-style: outset;
+	border-top-color: black;
+	border-right-color: black;
+	border-bottom-color: black;
+	border-left-color: black;
+}
+/* purchase button */
+input[type=submit] {
+    width: 10em;  height: 3em;
+    font-size: 20px;
+    color: black;
+    float: bottom;
+  }
