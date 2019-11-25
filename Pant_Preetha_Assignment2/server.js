@@ -5,51 +5,8 @@ var app = express();//starts express
 var myParser = require("body-parser");//start body-parser to set up server
 var products = require('./public/product_data.js');//take data from product_data.js in the public folder
 const querystring = require('querystring');//require that the server responds to any errors 
-
-//Adapted from Lab 14
-app.use(myParser.urlencoded({ extended: true }));
-fs = require('fs');//getting the component fs and loading it in and saving it in the module fs, because when you do a require it creates a module
 var filename = 'user_data.json';// storing the user_data.json under the name filename
-
-//Adapted from Lab 13
-//loging the method and path displayed in the console
-
-app.all('*', function (request, response, next) {
-    console.log(request.method + ' to ' + request.path);//respond to HTTP request by sending type of request and the path of request
-    next();//calls the middleware function
-});
-
-//Adapted from Lab 13
-app.use(myParser.urlencoded({ extended: true }));
-//posts the process form data with the action as process_form
-app.post("/process_form", function (request, response) {
-    let POST = request.body;
-    var hasValidQuantities = true; //action taken given that the quantities textbox is true
-    var hasPurchases = false; //action taken given the quantity of purchases are false
-    for (i = 0; i < products.length; i++) { //for loop for each product in the array that increases the count by 1
-        q = POST['quantity' + i]; //quantity entered by the user for a product(s) is assigned into q
-        if (isNonNegInt(q) == false) { //if the quantity enteredby the user is not a valid integer
-            hasValidQuantities = false; //HasValidQuantities is false or nothing was purchased
-        }
-        if (q > 0) { //if the quantity entered is more than 0
-            hasPurchases = true; //hasPurchases is true and the user has entered a valid integer(s) to purchase something
-        }
-    }
-    //if data is valid give user an invoice, if not give them an error
-    var qString = querystring.stringify(POST); //string query together
-    if (hasValidQuantities == true && hasPurchases == true) {//if hasValidQuantities and hasPurchases is true
-        response.redirect('login.html?' + qString);
-    }
-    else {
-
-        response.redirect("./products_page.html?" + qString); //if quantity is not valid, user is sent back to product page along with the query data entered previously from the user
-    }
-
-});
-
-app.use(express.static('./public')); //retrieves get request and look for file in public directory
-app.listen(8080, () => console.log(`listening on port 8080`)); //the server listens on port 8080 and prints the message into the console
-
+var fs = require('fs');//getting the component fs and loading it in and saving it in the module fs, because when you do a require it creates a module 
 //Adapted from Lab 13
 //returning errors check in the value being added to the products
 function isNonNegInt(q, returnErrors = false) {
@@ -83,6 +40,77 @@ if (fs.statSync(filename)) {
 } else {
     console.log(filename + ' does not exist');
 }
+
+//Adapted from Lab 14
+app.use(myParser.urlencoded({ extended: true }));
+
+var filename = 'user_data.json';// storing the user_data.json under the name filename
+
+//Adapted from Lab 13
+//loging the method and path displayed in the console
+
+app.all('*', function (request, response, next) {
+    console.log(request.method + ' to ' + request.path);//respond to HTTP request by sending type of request and the path of request
+    next();//calls the middleware function
+});
+
+//Adapted from Lab 13
+//posts the process form data with the action as process_form
+app.get("/process_form", function (request, response) {
+    //checks if quantity is valid 
+    //looks up a request.query
+    var params = request.query;
+    console.log(params);
+    if (typeof params['purchase_submit'] != 'undefined') {
+        has_errors = false; // assume quantities are valid from the start
+        total_qty = 0; // need to check if something was selected so we will look if the total > 0
+        for (i = 0; i < products.length; i++) {//checking each of the products in the array
+            if (typeof params[`quantity${i}`] != 'undefined') {
+                a_qty = params[`quantity${i}`];
+                console.log(a_qty);
+                total_qty += a_qty;//total quantity is addition of each individual quantity
+                if (!isNonNegInt(a_qty)) {//checks for not nonnegInt
+                    has_errors = true; // oops, invalid quantity
+                }
+            }
+        }
+        console.log(has_errors,total_qty);
+        //request to view query string
+        qstr = querystring.stringify(request.query);//turn object to query string
+        // Now respond to errors or redirect to invoice if all is ok
+        if (has_errors || total_qty == 0) {//check errors in total quantity
+            response.redirect("products_page.html?" + qstr);//direct the page to products_page if errors in data entry
+        } else { 
+            response.redirect("login.html?" + qstr);// direct the page to invoice if no errors in data entry
+        }
+    }
+});
+app.post("/process_form", function (request, response) {
+    let POST = request.body;
+    var hasValidQuantities = true; //action taken given that the quantities textbox is true
+    var hasPurchases = false; //action taken given the quantity of purchases are false
+    for (i = 0; i < products.length; i++) { //for loop for each product in the array that increases the count by 1
+        q = POST['quantity' + i]; //quantity entered by the user for a product(s) is assigned into q
+        if (isNonNegInt(q) == false) { //if the quantity enteredby the user is not a valid integer
+            hasValidQuantities = false; //HasValidQuantities is false or nothing was purchased
+        }
+        if (q > 0) { //if the quantity entered is more than 0
+            hasPurchases = true; //hasPurchases is true and the user has entered a valid integer(s) to purchase something
+        }
+    }
+    //if data is valid give user an invoice, if not give them an error
+    var qString = querystring.stringify(POST); //string query together
+    if (hasValidQuantities == true && hasPurchases == true) {//if hasValidQuantities and hasPurchases is true
+        response.redirect('login.html?' + qString);
+    }
+    else {
+
+        response.redirect("./products_page.html?" + qString); //if quantity is not valid, user is sent back to product page along with the query data entered previously from the user
+    }
+
+});
+
+
 
 //Got from Lab14
 //gets called with data from the form
@@ -122,23 +150,6 @@ app.post("/login", function (request, response) {
 
 });  
   
-    
-app.post("/register", function (request, response) { //if server gets request to register
-    // Give a simple register form
-    //when submit, posts to register, then calls app.post
-    str = `
-        <body>
-        <form action="" method="POST">
-        <input type="text" name="username" size="40" placeholder="enter username" ><br />
-        <input type="password" name="password" size="40" placeholder="enter password"><br />
-        <input type="password" name="repeat_password" size="40" placeholder="enter password again"><br />
-        <input type="email" name="email" size="40" placeholder="enter email"><br />
-        <input type="submit" value="Submit" id="submit">
-        </form>
-        </body>
-    `;
-    response.send(str);
-});
 
 app.post("/register", function (request, response) {
     // process a simple register form
@@ -167,3 +178,5 @@ app.post("/register", function (request, response) {
     }
 
 });
+app.use(express.static('./public')); //retrieves get request and look for file in public directory
+app.listen(8080, () => console.log(`listening on port 8080`)); //the server listens on port 8080 and prints the message into the console
