@@ -3,15 +3,15 @@ var app = express();
 var myParser = require("body-parser");//respond to POST method, data is not put in query string 
 
 app.use(myParser.urlencoded({ extended: true }));
-fs = require('fs');
-var filename = 'user_data.json';
+fs=require('fs');//getting the component fs and loading it in and saving it in the module fs, because when you do a require it creates a module
+var filename = 'user_data.json';// storing the user_data.json under the name filename
 //find a way to sisplay the data if it is in the additional file, if not display an error message
 if (fs.existsSync(filename)) {
     stats = fs.statSync(filename);
     console.log(filename + 'has'+ "" + stats.size + 'characters');//display the number of charaters in the data
     data = fs.readFileSync(filename, 'utf-8');//utf-8 defines the coding of the file, readFileSync used to run a part of file and execute it before running the rest of the file  
     console.log(typeof data);
-    user_reg_data = JSON.parse(data);//creates a displayable log of the data
+    user_reg_data = JSON.parse(data);// json.parse converts into and object
 /*
 username = 'newuser';
 user_reg_data[username] = {};
@@ -20,7 +20,7 @@ user_reg_data[username].email = 'newuser@user.com';
 fs.writeFileSync(filename,JSON.stringify(user_reg_data));//add the info of new user in the user_data.json 
 */
     console.log(user_reg_data);
-} else { console.log(filename + 'does not exist') };
+} else { console.log(filename + 'does not exist') };//json. stringify turns it into json and prints if data exists otherwise an error message is given
 
 
 app.get("/login", function (request, response) {//Show login page
@@ -71,7 +71,7 @@ app.get("/register", function (request, response) {
     //validate registration data 
 
     //save data if registration checks out
-
+//input new registration 
  username = request.body.username;
 user_reg_data[username] = {};
 user_reg_data[username].password = request.body.password;
@@ -79,7 +79,7 @@ user_reg_data[username].email = request.body.email;
 //turns into string
 fs.writeFileSync(filename,JSON.stringify(user_reg_data));
 
-respond.send(`${username} registered!`)
+respond.send(`${username} registered!`)//display username registered
     
  });
 app.listen(8080, () => console.log(`listening on port 8080`));
