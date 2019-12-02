@@ -10,7 +10,7 @@ html{background-color: violet;}
 input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 4px;
   box-sizing: border-box;
   margin-top: 6px;
@@ -23,7 +23,8 @@ input[type=submit] {
 }
 /* Style the container for inputs */
 .container {
-  background-color: #f1f1f1;
+  background-color:violet;
+  border: black;
   padding: 20px;
 }
 /* The message box is shown when the user clicks on the password field */
@@ -62,24 +63,30 @@ input[type=submit] {
 
 
 </head>
-<body>
+  <body>
 
-<h3>Login</h3>
-
-<div class="container">
-  <form action="" method="POST">
-    <label for="usrname">Username</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="psw">Password</label>
-    <input type="password" id="psw" name="psw" required>
-
-    <input type="submit" value="Submit" id="submit">
-  </form>
-</div>
-
-</script>   
-<a href = "register.html"> <b>Click here to REGISTER</b> </a>
-</body>
-</html>
+    <h3>Login</h3>
+    <p>Login to continue with purchase.</p>
+  
+    <form name="login" method="POST">
+  
+      <div class="container">
+        <form action="" method="POST">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+  
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+  
+          <input type="submit" value="Submit" id="submit">
+        </form>
+      </div>
+  
+      </script>
+      
+      <a href="register.html"> Click here to register </a>
+      
+  </body>
+  
+  </html>
   

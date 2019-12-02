@@ -124,8 +124,12 @@
   </table>
   <footer>
     <h1>
-      Thank you for your purchase!
-    </h1>
+      <script>
+          //personalize username
+          //params.get means get username, which is defined in the server
+          document.write(`Enjoy Your Beach Necessities ${params.get('username')}!`);
+          </script> 
+  </h1>
   </footer>
 </body>
 
