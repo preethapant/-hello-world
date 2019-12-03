@@ -142,11 +142,6 @@ errors={};//holds error messages
     errors["username_error"]="username is taken";
   }
 
-
-
-
-
-
   //Password: (a) This should have a minimum of 6 characters. (b) Any characters are valid. (c) Passwords are CASE SENSITIVE. That is, “ABC” is different from “abc”.
 
   //Email address: (a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.” (c) Y is the host machine which can contain only letters and numbers and “.” characters (d) Z is the domain name which is either 2 or 3 letters such as “edu” or “tv”. (e) Email addresses are CASE INSENSITIVE.
