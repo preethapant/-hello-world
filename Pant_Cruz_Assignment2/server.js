@@ -89,29 +89,29 @@ function isNonNegInt(q, returnErrors = false) {
 app.use(myParser.urlencoded({ extended: true }));
 
 app.post("/login.html", function (request, response) {
-  if (typeof users_reg_data[username] != 'undefined') {
+  if (typeof users_reg_data[the_username] != 'undefined') {
     //Asking object if it has matching username, if it doesnt itll be undefined.
-    if (users_reg_data[username].password == request.body.password) {
+    if (users_reg_data[the_username].password == request.body.password) {
         //Diagnostic
         console.log("Successful login", request.query);
         //If login is vaild save name and data and send to invoice to make custom invoice, string is getting lost
 
         //Redirect them to invoice here if they logged in correctly
         //How do I take name from query and input into invoice???
-        request.query.InvoiceName = users_reg_data[username].name;
+        request.query.InvoiceName = users_reg_data[the_username].name;
         qstring = querystring.stringify(request.query);
         response.redirect("invoice.html?" + qstring);
     }
     error = "Invalid Password";
 }
 else {
-    error = username + " Username does not exist";
+    error = the_username + " Username does not exist";
 
 }
 //Give you error message alert if password or username is flawed.
 request.query.LoginError = error;
 //Used to make login sticky so you dont have to retype it everytime you get the password wrong
-request.query.StickyLoginUser = username;
+request.query.StickyLoginUser = the_username;
 qstring = querystring.stringify(request.query);
 response.redirect("login.html?" + qstring);
 });
@@ -119,203 +119,61 @@ response.redirect("login.html?" + qstring);
 
 app.post("/registration", function (request, response) {
   
-  let INFO = request.body;
-  console.log(INFO);
-  //Makes the username case-insensitive
-  username = INFO.username.toLowerCase();
-  //Resest Errors in string so them dont carry over if user messes up multiple 
-  //process a simple register form
-
-  has_errors = false;
-
-  //validate registration data (add validation code for Assignment2)
-errors={};//holds error messages
-  //Username: (a) This should have a minimum of 4 characters and maximum of 10 characters. (b) Only letters and numbers are valid. (c) Usernames are CASE INSENSITIVE. (d) They must be unique. There may only be one of any particular username. Because of this, you will have to find a way to check the new username against the usernames saved in your file.
-  var letterNumber = /^[0-9a-zA-Z]{4,10}$/;
-  if (letterNumber.test(username) == false) {
-    has_errors = true;
-    errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
-
-  }
-  //check if username exists
-  if(typeof users_reg_data[username]!= "undefined") {
-    has_errors=true;
-    errors["username_error"]="username is taken";
-  }
-
-  //Password: (a) This should have a minimum of 6 characters. (b) Any characters are valid. (c) Passwords are CASE SENSITIVE. That is, “ABC” is different from “abc”.
-  var letterNumber = /^[0-9a-zA-Z]{6,}$/;
-  if (letterNumber.test(password) == false) {
-    has_errors = true;
-    errors["password_error"]="password must have at least 6 characters";
-
-  }
-  //check if password exists
-  if(typeof users_reg_data[password]!= "undefined") {
-    has_errors=true;
-    errors["password_error"]="password doesn't exist";
-  }
-  //Email address: (a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.” (c) Y is the host machine which can contain only letters and numbers and “.” characters (d) Z is the domain name which is either 2 or 3 letters such as “edu” or “tv”. (e) Email addresses are CASE INSENSITIVE.
-  var letterNumber = /^[0-9a-zA-Z]{4,10}$/;
-  if (letterNumber.test(username) == false) {
-    has_errors = true;
-    errors["email_error"]="must enter email, should be X@Y.Z";
-
-  }
-  //check if username is exists
-  if(typeof users_reg_data[username]!= "undefined") {
-    has_errors=true;
-    errors["username_error"]="username is taken";
-  }
-
-  //Full Name The users full name. Should only allow letters. No more than 30 characters.
-  var letters = /^[0-9a-zA-Z]{30}$/;
-  if (letterNumber.test(name) == false) {
-    has_errors = true;
-    errors["name_error"]="must enter full name";
-
-  }
-  //check if name is exists
-  if(typeof users_reg_data[name]!= "undefined") {
-    has_errors=true;
-    errors["name_error"]="full name is taken";
-  }
-
-  /* 
-   // SELECTING ALL TEXT ELEMENTS
-var username = document.forms['vform']['username'];
-var email = document.forms['vform']['email'];
-var password = document.forms['vform']['password'];
-var password_confirm = document.forms['vform']['password_confirm'];
-// SELECTING ALL ERROR DISPLAY ELEMENTS
-var name_error = document.getElementById('name_error');
-var email_error = document.getElementById('email_error');
-var password_error = document.getElementById('password_error');
-// SETTING ALL EVENT LISTENERS
-username.addEventListener('blur', nameVerify, true);
-email.addEventListener('blur', emailVerify, true);
-password.addEventListener('blur', passwordVerify, true);
-// validation function
-function Validate() {
- // validate username
- if (username.value == "") {
-   username.style.border = "1px solid red";
-   document.getElementById('username_div').style.color = "red";
-   name_error.textContent = "Username is required";
-   username.focus();
-   return false;
- }
- // validate username
- if (username.value.length < 3) {
-   username.style.border = "1px solid red";
-   document.getElementById('username_div').style.color = "red";
-   name_error.textContent = "Username must be at least 3 characters";
-   username.focus();
-   return false;
- }
- // validate email
- if (email.value == "") {
-   email.style.border = "1px solid red";
-   document.getElementById('email_div').style.color = "red";
-   email_error.textContent = "Email is required";
-   email.focus();
-   return false;
- }
- // validate password
- if (password.value == "") {
-   password.style.border = "1px solid red";
-   document.getElementById('password_div').style.color = "red";
-   password_confirm.style.border = "1px solid red";
-   password_error.textContent = "Password is required";
-   password.focus();
-   return false;
- }
- // check if the two passwords match
- if (password.value != password_confirm.value) {
-   password.style.border = "1px solid red";
-   document.getElementById('pass_confirm_div').style.color = "red";
-   password_confirm.style.border = "1px solid red";
-   password_error.innerHTML = "The two passwords do not match";
-   return false;
- }
+   username = request.body.username;//Save new user to file name (users_reg_data)
+   errors = {};//Checks to see if username already exists
+ //Username Validation
+if (typeof users_reg_data[username] != 'undefined'){
+errors.username_error="Username is currently in use"; 
 }
-// event handler functions
-function nameVerify() {
- if (username.value != "") {
-  username.style.border = "1px solid #5e6e66";
-  document.getElementById('username_div').style.color = "#5e6e66";
-  name_error.innerHTML = "";
-  return true;
- }
+if ((/[a-z0-9]+/).test(request.body.username) ==false){
+   errors.username_error="Only numbers/letters";
 }
-function emailVerify() {
- if (email.value != "") {
-   email.style.border = "1px solid #5e6e66";
-   document.getElementById('email_div').style.color = "#5e6e66";
-   email_error.innerHTML = "";
-   return true;
- }
+if ((username.length > 10) ==true){
+   errors.username_error = "Please make your username shorter"; 
 }
-function passwordVerify() {
- if (password.value != "") {
-   password.style.border = "1px solid #5e6e66";
-   document.getElementById('pass_confirm_div').style.color = "#5e6e66";
-   document.getElementById('password_div').style.color = "#5e6e66";
-   password_error.innerHTML = "";
-   return true;
- }
- if (password.value === password_confirm.value) {
-   password.style.border = "1px solid #5e6e66";
-   document.getElementById('pass_confirm_div').style.color = "#5e6e66";
-   password_error.innerHTML = "";
-   return true;
- }
-}*/
-  //validation includes # of characters, capitalization of letters, confirm password by typing it a second time (repeat_password)
-  
-  //if all good, so save the new user, then redirect to invoice otherwise bounce back to register
-
-  //do validation
-
-  //need to validate username length + case sentsitivity
-  //need to validate pass word lenght + one capital letter minimum + numbers  
-  //make sure it matches what's in register.html
-  //if can't figure out something, can always take it out of required field for password in register.html
-  //need to validate passord_cofirmation is the same as password
-  //need to validate email?
+if ((username.length < 4) ==true){
+   errors.username_error = "Please make your username longer"; 
+}
 
 
-  if (has_errors == false) {
-    // NEED TO save registration data to file
-    //creates new user
+name = request.body.name;//Save new user to file name (users_reg_data)
+//Fullname Validation //
+if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.fullname) == false){
+errors.fullname_error="Only use letters and a space";
+}
 
-    users_reg_data[username] = {};//key with new username, empty object
-    users_reg_data[username].password = request.body.password;//add password
-    users_reg_data[username].name = request.body.name;//add name
-    users_reg_data[username].email = request.body.email;//add email
+if ((name.length > 30) ==true){
+   errors.name_error = "Please make your full name shorter. 30 characters max"; 
+}
+
+//Email Validation//
+email=request.body.email;
+if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(request.body.email) == false) {
+errors.email_error="Please enter proper email";
+}
+
+
+console.log(errors, users_reg_data);
+//If there are 0 errors, request all registration info
+if (Object.keys(errors).length == 0){
+   users_reg_data[username] = {};
+   users_reg_data[username].username = request.body.username
+   users_reg_data[username].password = request.body.password;
+   users_reg_data[username].email = request.body.email;
+   users_reg_data[username].fullname = request.body.fullname;
 
     //turns into a json string file
     fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-    //I think he said I can use what's below but just changeg data in the pharanthesis ot something else but I forgot...
-    //then change fs.readFileSync to fs.writeFileSync
-
-    /*
-    data = fs.readFileSync(filename, 'utf-8'); //read the file synchronously until the file comes back
-    users_reg_data = JSON.parse(data) //will convert data (string) into an object or an array
-    */
+  
 
     //make the query string of product quantity needed for invoice
     theQuantQuerystring = qs.stringify(user_product_quantities);
     response.redirect('invoice.html?' + theQuantQuerystring + `&username=${username}`);
     //add their username in the invoice so that they know they're logged in (for personalization)
   } else {
-    qstring= qs.stringify(errors);
-    qreg_data=qs.stringify(INFO);
-
-      
-    response.redirect('register.html?'+qstring + '&' + qreg_data); 
- //if username doesn't exist then return to registration page
-    //NEED TO ADD MESSAGE ABOUT IF USERNAME AND PASSWORD ARE INCORRECT
+    qstring= qs.stringify(request.body)+"&"+qs.stringify(errors);  
+    response.redirect('register.html?'+qstring ); 
+ 
   }
 });
 
