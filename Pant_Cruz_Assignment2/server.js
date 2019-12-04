@@ -89,93 +89,92 @@ function isNonNegInt(q, returnErrors = false) {
 app.use(myParser.urlencoded({ extended: true }));
 
 app.post("/login.html", function (request, response) {
-  the_username=request.body.username
-  if (typeof users_reg_data[the_username] != 'undefined') {
-    //Asking object if it has matching username, if it doesnt itll be undefined.
-    if (users_reg_data[the_username].password == request.body.password) {
-        //Diagnostic
-        console.log("Successful login", request.query);
-        //If login is vaild save name and data and send to invoice to make custom invoice, string is getting lost
-
-        //Redirect them to invoice here if they logged in correctly
-        //How do I take name from query and input into invoice???
-        request.query.InvoiceName = users_reg_data[the_username].name;
-        qstring = querystring.stringify(request.query);
-        response.redirect("invoice.html?" + qstring);
-    }
-    error = "Invalid Password";
+  //process login form POST and redirect to logged in page if ok, back to login page if not
+  //if I have post, below will load
+  console.log(user_product_quantities);
+  the_username = request.body.username;
+  console.log(the_username, "Username is", typeof (users_reg_data[the_username]));
+  //validate login data
+  if (typeof users_reg_data[the_username] != 'undefined') { //data we loaded in the file
+      if (users_reg_data[the_username].password == request.body.password) {
+          //make the query string of product quantity needed for invoice
+          theQuantQuerystring = qs.stringify(user_product_quantities);  //turns quantity object into a string
+          response.redirect('invoice.html?' + theQuantQuerystring + `&username=${the_username}`); //all good, send to invoice
+      } else {
+      error = "Invalid Password"; //if password does not exist, will show message (connected to login page)
+  } 
+  }
+  else {
+      error ="Username doesn't exist"; //Display error message showing the username doesn't exist
+  }
+  request.query.LoginError = error;
+  request.query.StickyLoginUser = the_username;
+  qstring = querystring.stringify(request.query);
+  response.redirect('/login.html?error=' + error);//if username doesn't exist then return to login page (with alert box)
 }
-else {
-    error = the_username + " Username does not exist";
+);
 
-}
-//Give you error message alert if password or username is flawed.
-request.query.LoginError = error;
-//Used to make login sticky so you dont have to retype it everytime you get the password wrong
-request.query.StickyLoginUser = the_username;
-qstring = querystring.stringify(request.query);
-response.redirect("login.html?" + qstring);
-});
+app.post("/register.html", function (request, response) {
+  //process a simple register form
+  console.log(user_product_quantities);
 
+  //variable for re-enter password validation
+  var p = request.body.password;
+  var cp = request.body.repeat_password;
 
-app.post("/registration", function (request, response) {
-  
-   username = request.body.username;//Save new user to file name (users_reg_data)
-   errors = {};//Checks to see if username already exists
- //Username Validation
+  username = request.body.username; //save new user to file name (users_reg_data)
+  errors = {};//checks to see if username already exists
+//username validation
 if (typeof users_reg_data[username] != 'undefined'){
-errors.username_error="Username is currently in use"; 
+errors.username_error="Username is Already in Use"; //error message if username already exist (connected to registration page)
 }
-if ((/[a-z0-9]+/).test(request.body.username) ==false){
-   errors.username_error="Only numbers/letters";
+if ((/[a-z0-9]+/).test(request.body.username) == false){
+  errors.username_error="Numbers and Letters only"; //error message if there are other special symbols other than numbers and symbols (connected to registration page)
 }
-if ((username.length > 10) ==true){
-   errors.username_error = "Please make your username shorter"; 
+if ((username.length > 10) == true){
+  errors.username_error = "Characters for username is too long. Please enter 10 or fewer"; //error message if number of characters is longer than 10 (connected to registration page)
 }
-if ((username.length < 4) ==true){
-   errors.username_error = "Please make your username longer"; 
+if ((username.length < 4) == true){
+      errors.username_error = "Characters for username is too short. Please enter 4 or fewer"; //error message if number of characters is shorter than 4 (connected to registration page)
 }
 
 
-name = request.body.name;//Save new user to file name (users_reg_data)
-//Fullname Validation //
+fullname = request.body.fullname;//save new user to file name (users_reg_data)
+
+//fullname validation
 if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.fullname) == false){
-errors.fullname_error="Only use letters and a space";
+errors.fullname_error="Only use letters and add one space between first & last name"; //error message if special characters are used and/or a space is missing (connected to registration page)
 }
 
-if ((name.length > 30) ==true){
-   errors.name_error = "Please make your full name shorter. 30 characters max"; 
+if ((fullname.length > 30) == true){
+  errors.fullname_error = "Full name is too long. Please make it fewer than 30 characters"; //error message if number of characters is longer than 30 (connected to registration page)
 }
 
-//Email Validation//
+//email validation
 email=request.body.email;
 if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(request.body.email) == false) {
-errors.email_error="Please enter proper email";
+errors.email_error="The email doesn't exist. Please enter a valid email"; //error message if proper email is not used (connected to registration page)
 }
 
-
 console.log(errors, users_reg_data);
-//If there are 0 errors, request all registration info
-if (Object.keys(errors).length == 0){
-   users_reg_data[username] = {};
-   users_reg_data[username].username = request.body.username
-   users_reg_data[username].password = request.body.password;
-   users_reg_data[username].email = request.body.email;
-   users_reg_data[username].fullname = request.body.fullname;
+//if there are 0 errors and repeat_password is equal to password, request all registration info
+if ((Object.keys(errors).length == 0) & (p == cp)) {
+    users_reg_data[username] = {};
+    users_reg_data[username].username = request.body.username
+    users_reg_data[username].password = request.body.password;
+    users_reg_data[username].email = request.body.email;
+    users_reg_data[username].fullname = request.body.fullname;
 
-    //turns into a json string file
-    fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-  
-
-    //make the query string of product quantity needed for invoice
-    theQuantQuerystring = qs.stringify(user_product_quantities);
-    response.redirect('invoice.html?' + theQuantQuerystring + `&username=${username}`);
-    //add their username in the invoice so that they know they're logged in (for personalization)
-  } else {
-    qstring= qs.stringify(request.body)+"&"+qs.stringify(errors);  
-    response.redirect('register.html?'+qstring ); 
- 
-  }
+    fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //saves/writes registaration data into the user_data json file
+    theQuantQuerystring = qs.stringify(user_product_quantities); //turns quantity object into a string
+    response.redirect("/invoice.html?" + theQuantQuerystring + `&username=${username}`); //if all good, send to invoice
+} else {
+    qstring = qs.stringify(request.body) + "&" + qs.stringify(errors); //puts errors into a query string
+    response.redirect('/register.html?' + qstring); //if there are errors, send back to registration page to retype
+}
+request.query.LoginError = error;
+  request.query.StickyLoginUser = the_username;
+  qstring = querystring.stringify(request.query);
 });
 
 app.use(express.static('./public')); //retrieves get request and look for file in public directory

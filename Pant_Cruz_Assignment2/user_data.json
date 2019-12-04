@@ -17,11 +17,5 @@
     "newuser": {
         "password": "newpass",
         "email": "newuser@user.com"
-    },
-    "preethapant": {
-        "password": "Student1",
-        "name": "PreethaPant",
-        "email": "pree@hawaii.edu"
     }
-   
 }

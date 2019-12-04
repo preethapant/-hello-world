@@ -3,41 +3,20 @@
 
 <head>
   <script>
-    let params = (new URL(document.location)).searchParams;
 
-    window.onload = function (){
-        // make username sticky 
-        if(params.has('submit')) {
-          username.value = params.get('username');
-
-        }
-        // display errors
-        if(params.has('username_error')) {
-          username_error_span.innerHTML = params.get('username_error');
-        }   
+    //checks if password is equal to repeat_password on html form
+    //if they do not match, it will show as error message that says passwords don't match, please retype
+    //borrowed from Jayla and Melissa
+    function checkpassword() {
+      var p = forms.password.value;
+      var cp = forms.repeat_password.value;
+      if (p == cp) { }
+      else
+        alert("Passwords Don't Match. Please Retype")
+      response.redirect("register.html?"); //if passwords don't match, redirect back to registration html page
     }
-    window.onload = function (){
-        // make name sticky 
-        if(params.has('submit')) {
-          name.value = params.get('name');
-
-        }
-        // display errors
-        if(params.has('name_error')) {
-          name_error_span.innerHTML = params.get('name_error');
-        }   
-    }
-    window.onload = function (){
-        // make email sticky 
-        if(params.has('submit')) {
-         email.value = params.get('email');
-
-        }
-        // display errors
-        if(params.has('email_error')) {
-          email_error_span.innerHTML = params.get('email_error');
-        }   
-    }
+  </script>
+  
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -81,53 +60,33 @@
   </style>
 </head>
 
-<body>
-
-  <h3>Register</h3>
-  <p>Register to purchase!</p>
-
-  <div class="container">
-    <form id="registration_page" method="POST" action="registration" name="register">
-      
-     <label for="name">Name</label>
-      <input type="text" id="name" name="name" maxlength="30" placeholder="Enter Full Name">
-     
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" minlength="4" maxlength="10" placeholder="Enter Username"
-      alert= "Must be between 4 to 10 characters"
-        onkeyup="" required>
-        <span id="username_error_span"></span>
-    
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" minlength="6" placeholder="Enter Password"
-        alert="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
-        onkeyup="" required>
-
-      <label for="password_confirm">Password</label>
-      <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm Password" 
-      alert="Password doesnt match"onkeyup=""
-        required>
-
-      <label for="email">Email</label>
-      <input type="email" name="email" size="40" placeholder="Enter Email"
-      alert="(a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.”"
-      onkeyup=""><br />
-
-      <input type="submit" name="submit" value="Register">
-    </form>
-  </div>
-
-  <div id="message">
-    <h3>Password must contain the following:</h3>
-    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-    <p id="number" class="invalid">A <b>number</b></p>
-    <p id="length" class="invalid">Minimum <b>6 characters</b></p>
-  </div>
-
-
-
 </body>
+
+<p>Registration is easy!</p>
+<script>
+    //<div class="container"> is for registration form
+    //placeholder shows what's on the textbox (removed when something is typed in the textbox)
+    //required title shows requirements as user is filling out the registration form (only when the requirements are not met)
+</script>
+<div class="container">
+  <form name="forms" method="POST" action="">
+    <input type="text" name="fullname" size="40" maxlength="30" placeholder="Enter First & Last Name" required
+      title="Only Letters and add a space"><label for="fullname" id="fullname_label"></label><br />
+    <input type="text" name="username" size="40" required title="Either 4-10 Characters & only numbers/letters"
+      placeholder="Create Username"><label for="username" id="username_label"></label><br />
+    <input type="password" id="password" name="password" size="40" required title="6 characters minimum"
+      placeholder="Create Password"><br />
+    <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{6,}" required
+      title="6 characters minimum" placeholder="Re-enter Password"><br />
+    <input type="email" name="email" size="40" placeholder="Enter Email" required
+      title="Invalid! Make sure your email contains the following... 1. @ sign 2. Three letters in domain name 3. Only numbers/characters and _ & . may be used. "><label
+      for="email" id="email_label"></label><br />
+
+    <input type="submit" value="Register" id="submit" onclick="checkpassword()">
+
+  </form>
+</div>
+
+<a href="login.html"> Click here to go back to login page </a>
 
 </html>
