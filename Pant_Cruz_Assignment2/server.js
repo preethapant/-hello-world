@@ -92,7 +92,10 @@ app.post("/login.html", function (request, response) {
   //process login form POST and redirect to logged in page if ok, back to login page if not
   //if I have post, below will load
   console.log(user_product_quantities);
+ 
+
   the_username = request.body.username;
+   the_username= request.body.username.toLowerCase(); //makes username case insensitive
   console.log(the_username, "Username is", typeof (users_reg_data[the_username]));
   //validate login data
   if (typeof users_reg_data[the_username] != 'undefined') { //data we loaded in the file
@@ -115,16 +118,17 @@ app.post("/login.html", function (request, response) {
 );
 
 app.post("/register.html", function (request, response) {
-  //process a simple register form
+  // simple register form process
   console.log(user_product_quantities);
 
   //variable for re-enter password validation
   var p = request.body.password;
   var cp = request.body.repeat_password;
-
+  
+  the_username= request.body.username.toLowerCase(); //makes username case insensitive
   username = request.body.username; //save new user to file name (users_reg_data)
-  errors = {};//checks to see if username already exists
-//username validation
+  errors = {};//does the username exist?
+//validating username
 if (typeof users_reg_data[username] != 'undefined'){
 errors.username_error="Username is Already in Use"; //error message if username already exist (connected to registration page)
 }
