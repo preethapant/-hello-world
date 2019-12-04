@@ -89,36 +89,36 @@ function isNonNegInt(q, returnErrors = false) {
 app.use(myParser.urlencoded({ extended: true }));
 
 app.post("/login.html", function (request, response) {
-  //process login form POST and redirect to logged in page if ok, back to login page if not
-  //if I have post, below will load
-  console.log(user_product_quantities);
-  //the_username =users_reg_data.username;
-  the_username = request.body.username;
-  console.log("Username is", the_username);
-  console.log(users_reg_data);
+  if (typeof users_reg_data[username] != 'undefined') {
+    //Asking object if it has matching username, if it doesnt itll be undefined.
+    if (users_reg_data[username].password == request.body.password) {
+        //Diagnostic
+        console.log("Successful login", request.query);
+        //If login is vaild save name and data and send to invoice to make custom invoice, string is getting lost
 
-  //validate login data
-  errors={};
-  if (typeof users_reg_data[the_username] != 'undefined') { //data we loaded in the file
-    if (users_reg_data[the_username].password == request.body.password) {
-      //make the query string of product quantity needed for invoice
-      theQuantQuerystring = qs.stringify(user_product_quantities);
-      response.redirect('invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
-      //add their username in the invoice so that they know they're logged in (for personalization)
-      return;
-    } else {
-      errors["password_error"]="wrong password";
+        //Redirect them to invoice here if they logged in correctly
+        //How do I take name from query and input into invoice???
+        request.query.InvoiceName = users_reg_data[username].name;
+        qstring = querystring.stringify(request.query);
+        response.redirect("invoice.html?" + qstring);
     }
-  } else{
-    errors["username_error"]="username does not exist";
-  }
-  qstring= qs.stringify(errors);   
-  response.redirect('login.html?'+qstring); //if username doesn't exist then return to login page 
-  //make username sticky (i.e., stay in page when redirected)
-  //NEED TO ADD MESSAGE ABOUT IF USERNAME AND PASSWORD ARE INCORRECT
+    error = "Invalid Password";
+}
+else {
+    error = username + " Username does not exist";
+
+}
+//Give you error message alert if password or username is flawed.
+request.query.LoginError = error;
+//Used to make login sticky so you dont have to retype it everytime you get the password wrong
+request.query.StickyLoginUser = username;
+qstring = querystring.stringify(request.query);
+response.redirect("login.html?" + qstring);
 });
 
+
 app.post("/registration", function (request, response) {
+  
   let INFO = request.body;
   console.log(INFO);
   //Makes the username case-insensitive
@@ -137,7 +137,7 @@ errors={};//holds error messages
     errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
 
   }
-  //check if username is exists
+  //check if username exists
   if(typeof users_reg_data[username]!= "undefined") {
     has_errors=true;
     errors["username_error"]="username is taken";
@@ -145,21 +145,21 @@ errors={};//holds error messages
 
   //Password: (a) This should have a minimum of 6 characters. (b) Any characters are valid. (c) Passwords are CASE SENSITIVE. That is, “ABC” is different from “abc”.
   var letterNumber = /^[0-9a-zA-Z]{6,}$/;
-  if (letterNumber.test(username) == false) {
+  if (letterNumber.test(password) == false) {
     has_errors = true;
-    errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
+    errors["password_error"]="password must have at least 6 characters";
 
   }
-  //check if username is exists
-  if(typeof users_reg_data[username]!= "undefined") {
+  //check if password exists
+  if(typeof users_reg_data[password]!= "undefined") {
     has_errors=true;
-    errors["username_error"]="username is taken";
+    errors["password_error"]="password doesn't exist";
   }
   //Email address: (a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.” (c) Y is the host machine which can contain only letters and numbers and “.” characters (d) Z is the domain name which is either 2 or 3 letters such as “edu” or “tv”. (e) Email addresses are CASE INSENSITIVE.
   var letterNumber = /^[0-9a-zA-Z]{4,10}$/;
   if (letterNumber.test(username) == false) {
     has_errors = true;
-    errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
+    errors["email_error"]="must enter email, should be X@Y.Z";
 
   }
   //check if username is exists
@@ -169,6 +169,18 @@ errors={};//holds error messages
   }
 
   //Full Name The users full name. Should only allow letters. No more than 30 characters.
+  var letters = /^[0-9a-zA-Z]{30}$/;
+  if (letterNumber.test(name) == false) {
+    has_errors = true;
+    errors["name_error"]="must enter full name";
+
+  }
+  //check if name is exists
+  if(typeof users_reg_data[name]!= "undefined") {
+    has_errors=true;
+    errors["name_error"]="full name is taken";
+  }
+
   /* 
    // SELECTING ALL TEXT ELEMENTS
 var username = document.forms['vform']['username'];

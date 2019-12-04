@@ -107,26 +107,29 @@
     <form id="registration_page" method="POST" action="registration" name="register">
       
      <label for="name">Name</label>
-      <input type="text" id="name" name="name" minlength="4" maxlength="30" placeholder="Enter Name">
+      <input type="text" id="name" name="name" maxlength="30" placeholder="Enter Full Name">
      
       <label for="username">Username</label>
       <input type="text" id="username" name="username" minlength="4" maxlength="10" placeholder="Enter Username"
+      alert= "Must be between 4 to 10 characters"
         onkeyup="" required>
         <span id="username_error_span"></span>
     
 
       <label for="password">Password</label>
       <input type="password" id="password" name="password" minlength="6" placeholder="Enter Password"
-        pattern=""
-        title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
+        alert="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
         onkeyup="" required>
 
       <label for="password_confirm">Password</label>
-      <input type="password" id="password_confirm" name="password_confirm" placeholder="Re-enter Password" onkeyup=""
+      <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm Password" 
+      alert="Password doesnt match"onkeyup=""
         required>
 
       <label for="email">Email</label>
-      <input type="email" name="email" size="40" placeholder="Enter Email" onkeyup=""><br />
+      <input type="email" name="email" size="40" placeholder="Enter Email"
+      alert="(a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.”"
+      onkeyup=""><br />
 
       <input type="submit" name="submit" value="Register">
     </form>
