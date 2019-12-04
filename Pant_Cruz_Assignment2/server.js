@@ -89,6 +89,7 @@ function isNonNegInt(q, returnErrors = false) {
 app.use(myParser.urlencoded({ extended: true }));
 
 app.post("/login.html", function (request, response) {
+  the_username=request.body.username
   if (typeof users_reg_data[the_username] != 'undefined') {
     //Asking object if it has matching username, if it doesnt itll be undefined.
     if (users_reg_data[the_username].password == request.body.password) {
