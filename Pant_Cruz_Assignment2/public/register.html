@@ -6,7 +6,7 @@
     let params = (new URL(document.location)).searchParams;
 
     window.onload = function (){
-        // make things sticky 
+        // make username sticky 
         if(params.has('submit')) {
           username.value = params.get('username');
 
@@ -14,10 +14,29 @@
         // display errors
         if(params.has('username_error')) {
           username_error_span.innerHTML = params.get('username_error');
+        }   
+    }
+    window.onload = function (){
+        // make name sticky 
+        if(params.has('submit')) {
+          name.value = params.get('name');
+
         }
+        // display errors
+        if(params.has('name_error')) {
+          name_error_span.innerHTML = params.get('name_error');
+        }   
+    }
+    window.onload = function (){
+        // make email sticky 
+        if(params.has('submit')) {
+         email.value = params.get('email');
 
-
-        
+        }
+        // display errors
+        if(params.has('email_error')) {
+          email_error_span.innerHTML = params.get('email_error');
+        }   
     }
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,18 +105,19 @@
 
   <div class="container">
     <form id="registration_page" method="POST" action="registration" name="register">
+      
+     <label for="name">Name</label>
+      <input type="text" id="name" name="name" minlength="4" maxlength="30" placeholder="Enter Name">
+     
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" minlength="5" maxlength="20" placeholder="Enter Username"
+      <input type="text" id="username" name="username" minlength="4" maxlength="10" placeholder="Enter Username"
         onkeyup="" required>
         <span id="username_error_span"></span>
-        <label for="name">Name</label>
-     <input type="text" id="name" name="name" minlength="8" placeholder="Enter Name">
     
-       
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" minlength="8" placeholder="Enter Password"
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+      <input type="password" id="password" name="password" minlength="6" placeholder="Enter Password"
+        pattern=""
         title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
         onkeyup="" required>
 

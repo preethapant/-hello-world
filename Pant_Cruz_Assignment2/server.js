@@ -96,6 +96,7 @@ app.post("/login.html", function (request, response) {
   the_username = request.body.username;
   console.log("Username is", the_username);
   console.log(users_reg_data);
+
   //validate login data
   errors={};
   if (typeof users_reg_data[the_username] != 'undefined') { //data we loaded in the file
@@ -143,9 +144,29 @@ errors={};//holds error messages
   }
 
   //Password: (a) This should have a minimum of 6 characters. (b) Any characters are valid. (c) Passwords are CASE SENSITIVE. That is, “ABC” is different from “abc”.
+  var letterNumber = /^[0-9a-zA-Z]{6,}$/;
+  if (letterNumber.test(username) == false) {
+    has_errors = true;
+    errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
 
+  }
+  //check if username is exists
+  if(typeof users_reg_data[username]!= "undefined") {
+    has_errors=true;
+    errors["username_error"]="username is taken";
+  }
   //Email address: (a) The format should be X@Y.Z where (b) X is the user address which can only contain letters, numbers, and the characters “_” and “.” (c) Y is the host machine which can contain only letters and numbers and “.” characters (d) Z is the domain name which is either 2 or 3 letters such as “edu” or “tv”. (e) Email addresses are CASE INSENSITIVE.
+  var letterNumber = /^[0-9a-zA-Z]{4,10}$/;
+  if (letterNumber.test(username) == false) {
+    has_errors = true;
+    errors["username_error"]="username must be between 4 and 10 characters only letters and numbers";
 
+  }
+  //check if username is exists
+  if(typeof users_reg_data[username]!= "undefined") {
+    has_errors=true;
+    errors["username_error"]="username is taken";
+  }
 
   //Full Name The users full name. Should only allow letters. No more than 30 characters.
   /* 
@@ -278,6 +299,7 @@ function passwordVerify() {
   } else {
     qstring= qs.stringify(errors);
     qreg_data=qs.stringify(INFO);
+
       
     response.redirect('register.html?'+qstring + '&' + qreg_data); 
  //if username doesn't exist then return to registration page
