@@ -1,6 +1,8 @@
+<script>//Preetha, 12/3/19, creating register page</script>
 <!DOCTYPE html>
 <html>
     <script>
+      //assistance from  Professor Port and Jaren 
         window.onload = function () {
           var urlParams = new URLSearchParams(window.location.search);
           if (urlParams.has("username")) { //gets username data and displays in URL
@@ -37,8 +39,8 @@
       var cp = forms.repeat_password.value;
       if (p == cp) { }
       else
-        alert("Passwords Don't Match. Please Retype")
-      response.redirect("register.html?"); //if passwords don't match, redirect back to registration html page
+        alert("Passwords Doesn't match. Please try again")
+      response.redirect("register.html?"); //edirect back to registration html page when password doesnt match
     }
   </script>
   
@@ -112,6 +114,6 @@
   </form>
 </div>
 
-<a href="login.html"> Click here to go back to login page </a>
+<a href="login.html"> Click for login page </a>
 
 </html>

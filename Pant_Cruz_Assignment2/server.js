@@ -1,4 +1,4 @@
-//PREETHA PANT, 11/26/19, creating own server to serve up our website
+//PREETHA PANT, 12/3/19, creating own server to serve up our website
 const querystring = require('querystring');//require that the server responds to any errors
 var fs = require('fs');//getting the component fs and loading it in and saving it in the module fs, because when you do a require it creates a module 
 var express = require('express');// start express package to set up server
@@ -97,6 +97,8 @@ app.post("/login.html", function (request, response) {
   the_username = request.body.username;
    the_username= request.body.username.toLowerCase(); //makes username case insensitive
   console.log(the_username, "Username is", typeof (users_reg_data[the_username]));
+  
+  //assistance from  Professor Port and Jaren 
   //validate login data
   if (typeof users_reg_data[the_username] != 'undefined') { //data we loaded in the file
       if (users_reg_data[the_username].password == request.body.password) {
@@ -113,7 +115,7 @@ app.post("/login.html", function (request, response) {
   request.query.LoginError = error;
   request.query.StickyLoginUser = the_username;
   qstring = querystring.stringify(request.query);
-  response.redirect('/login.html?error=' + error);//if username doesn't exist then return to login page (with alert box)
+  response.redirect('/login.html?error=' + error);//when username doesn't exist return to login page displaying the error in alert box
 }
 );
 
@@ -127,37 +129,40 @@ app.post("/register.html", function (request, response) {
   
   the_username= request.body.username.toLowerCase(); //makes username case insensitive
   username = request.body.username; //save new user to file name (users_reg_data)
-  errors = {};//does the username exist?
-//validating username
+  errors = {};//check to see if usename sxists
+
+  //assistance from Jaren
+  //validating username
 if (typeof users_reg_data[username] != 'undefined'){
-errors.username_error="Username is Already in Use"; //error message if username already exist (connected to registration page)
+errors.username_error="Username is Already in Use"; //show error message when username is taken by someone else / works in the register page
 }
 if ((/[a-z0-9]+/).test(request.body.username) == false){
-  errors.username_error="Numbers and Letters only"; //error message if there are other special symbols other than numbers and symbols (connected to registration page)
+  errors.username_error="Numbers and Letters only"; //show error message if user inputs special symbols other than numbers and letters / works in the register page
 }
 if ((username.length > 10) == true){
-  errors.username_error = "Characters for username is too long. Please enter 10 or fewer"; //error message if number of characters is longer than 10 (connected to registration page)
+  errors.username_error = "Characters for username is too long. Please enter 10 or fewer"; //show error message if number of characters is longer than 10 / works in the register page
 }
 if ((username.length < 4) == true){
-      errors.username_error = "Characters for username is too short. Please enter 4 or fewer"; //error message if number of characters is shorter than 4 (connected to registration page)
+      errors.username_error = "Characters for username is too short. Please enter 4 or fewer"; // show error message if number of characters is shorter than 4 / works in the register page
 }
 
 
-fullname = request.body.fullname;//save new user to file name (users_reg_data)
+fullname = request.body.fullname;//save new user to user_data
 
+//assistance from Jaren 
 //fullname validation
 if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.fullname) == false){
-errors.fullname_error="Only use letters and add one space between first & last name"; //error message if special characters are used and/or a space is missing (connected to registration page)
+errors.fullname_error="Only use letters and add one space between first & last name"; // show error message if special characters are used and/or a space is missing / works in the register page
 }
 
 if ((fullname.length > 30) == true){
-  errors.fullname_error = "Full name is too long. Please make it fewer than 30 characters"; //error message if number of characters is longer than 30 (connected to registration page)
+  errors.fullname_error = "Full name is too long. Please make it fewer than 30 characters"; // show error message if number of characters is longer than 30 / works in the register page
 }
 
 //email validation
 email=request.body.email;
 if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(request.body.email) == false) {
-errors.email_error="The email doesn't exist. Please enter a valid email"; //error message if proper email is not used (connected to registration page)
+errors.email_error="The email doesn't exist. Please enter a valid email"; // show error message if proper email is not used// works in the register page
 }
 
 console.log(errors, users_reg_data);
@@ -171,10 +176,10 @@ if ((Object.keys(errors).length == 0) & (p == cp)) {
 
     fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //saves/writes registaration data into the user_data json file
     theQuantQuerystring = qs.stringify(user_product_quantities); //turns quantity object into a string
-    response.redirect("/invoice.html?" + theQuantQuerystring + `&username=${username}`); //if all good, send to invoice
+    response.redirect("/invoice.html?" + theQuantQuerystring + `&username=${username}`); //send to invoice after everything checks out with personalization
 } else {
     qstring = qs.stringify(request.body) + "&" + qs.stringify(errors); //puts errors into a query string
-    response.redirect('/register.html?' + qstring); //if there are errors, send back to registration page to retype
+    response.redirect('/register.html?' + qstring); //if there are errors, send back to registration page
 }
 request.query.LoginError = error;
   request.query.StickyLoginUser = the_username;
