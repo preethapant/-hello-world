@@ -23,7 +23,7 @@ if (fs.existsSync(filename)) {
 
 
 //GETS TO POINTS PAGE
-
+app.post("/master_mainpg.html",function (request, response) { 
 
 // Process login form POST and redirect to Total Points Page. If incorrect login info is inputted, show error
 app.post("/login.html", function (request, response) {
@@ -31,7 +31,7 @@ app.post("/login.html", function (request, response) {
     //Validate login data
     if (typeof users_reg_data[the_username] != 'undefined') {   //To check if the username exists in the json data
         if (users_reg_data[the_username].password == request.body.password) {
-
+bm
             response.redirect('/Total_ptpg.html?' + `&username=${the_username}`); //Adds username to Total Points Page
         }
 
@@ -49,7 +49,7 @@ app.post("/login.html", function (request, response) {
 
 
 app.post("/webmasterLogin.html", function (request, response) {
-    the_username = request.body.username; //makes username 
+    the_points = request.body.points; //makes username 
     
     console.log("Username=" + the_username);
     //Validate login data
