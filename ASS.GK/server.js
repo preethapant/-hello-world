@@ -1,4 +1,3 @@
-//Code used for valifdation
 //server acts as a middle man
 
 var express = require('express'); //initializes express to set up web server

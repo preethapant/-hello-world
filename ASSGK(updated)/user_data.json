@@ -1,0 +1,44 @@
+{
+    "ebmember": {
+        "password": "golden",
+        "email": "gk@hawaii.edu",
+        "fullname": "Executive Board Member",
+        "usertype": "Webmaster"
+    },
+    "dport": {
+        "name": "Dan Port",
+        "password": "portspassword",
+        "email": "dport@hawaii.edu"
+    },
+    "kazman": {
+        "name": "Rick Kazman",
+        "password": "kazmanpassword",
+        "email": "kazman@hawaii.edu"
+    },
+    "itm352": {
+        "name": "ITM 352",
+        "password": "grader",
+        "email": "itm352@hawaii.edu"
+    },
+    "msyago": {
+        "username": "msyago",
+        "password": "doggy600",
+        "email": "msyago@hawaii.edu",
+        "fullname": "Melissa Yago",
+        "usertype": "Webmaster"
+    },
+    "jaylakai": {
+        "username": "jaylakai",
+        "password": "123456",
+        "email": "jaylakai@hawaii.edu",
+        "fullname": "Jayla Kaita",
+        "usertype": "regular"
+},
+    "preethapant": {
+    "username": "pree",
+    "password": "GoldenKey123",
+    "email": "pree@hawaii.edu",
+    "fullname": "Preetha Pant",
+    "usertype": "regular"
+}
+}
