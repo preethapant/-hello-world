@@ -1,6 +1,3 @@
-
-
-
 var express = require('express'); //initializes express to set up web server
 var myParser = require("body-parser"); //initializes body-parser to set up web server
 var filename = 'user_data.json' //Defines the user_data.json array as an object
@@ -23,7 +20,7 @@ if (fs.existsSync(filename)) {
 
 
 //GETS TO POINTS PAGE
-app.post("/master_mainpg.html",function (request, response) { 
+
 
 // Process login form POST and redirect to Total Points Page. If incorrect login info is inputted, show error
 app.post("/login.html", function (request, response) {
@@ -31,7 +28,7 @@ app.post("/login.html", function (request, response) {
     //Validate login data
     if (typeof users_reg_data[the_username] != 'undefined') {   //To check if the username exists in the json data
         if (users_reg_data[the_username].password == request.body.password) {
-bm
+
             response.redirect('/Total_ptpg.html?' + `&username=${the_username}`); //Adds username to Total Points Page
         }
 
@@ -49,7 +46,7 @@ bm
 
 
 app.post("/webmasterLogin.html", function (request, response) {
-    the_points = request.body.points; //makes username 
+    the_username = request.body.username; //makes username 
     
     console.log("Username=" + the_username);
     //Validate login data
@@ -62,7 +59,60 @@ app.post("/webmasterLogin.html", function (request, response) {
     }
 });
 
+app.post("/registration.html", function (request, response) {
+    // process a simple register form
+    console.log(flowerquant);
+  
+    username = request.body.username;//retrieves the username data
+    errors = {};//Checks to see if username already exists
+  
+    //Username Validation
+ if (typeof users_reg_data[username] != 'undefined'){
+ errors.username_error="Username is Already in Use"; //if username is in json file, say username is already in use
+ }
+ if ((/[a-z0-9]+/).test(request.body.username) ==false){ //only allows numbers and letters for the username
+    errors.username_error="Only numbers/letters";
+ }
+ if ((username.length > 10) ==true){
+    errors.username_error = "Please make your username shorter"; //if length is more than 10, show error to make the username shorter
+ }
+ if ((username.length < 4) ==true){
+    errors.username_error = "Please make your username longer"; //if length is less than 4, show error to make the username longer
+ }
+ 
+ 
+ 
+ 
+ //Fullname Validation // got help for the first fullname validation from Mr. Port
+ fullname = request.body.fullname;//retrieves the fullname data
+ if ((/[a-zA-Z]+[ ]+[a-zA-Z]+/).test(request.body.fullname) == false){
+ errors.fullname_error="Only use letters and a space";
+ }
+ 
+ if ((fullname.length > 30) ==true){
+    errors.fullname_error = "Please make your full name shorter. 30 characters max"; //if length is greater than 30, send error that 30 characters are max
+ }
+ 
+ 
+ //Email Validation//
+ if ((/[a-z0-9._]+@[a-z0-9]+\.[a-z]+/).test(request.body.email) == false) {
+ errors.email_error="Please enter proper email";
+ }
+ 
+ //Points Validation//
+ if((points!=0)==true){errors.points_error= "Please assign 0 to points"}
 
+ console.log(errors, users_reg_data);
+ //If there are 0 errors, request all registration info
+ if (Object.keys(errors).length == 0){
+    users_reg_data[username] = {};
+    users_reg_data[username].username = request.body.username
+    users_reg_data[username].password = request.body.password;
+    users_reg_data[username].email = request.body.email;
+    users_reg_data[username].fullname = request.body.fullname;
+    users_reg_data[username].points = request.body.points;
+  
+ fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //Writes registration info into the userdata json file
 
 
 app.all('*', function (request, response, next) {
@@ -80,19 +130,11 @@ app.listen(8080, () => console.log(`listening on port 8080`)); //listens on Port
                 if (typeof users_reg_data[the_username].username == request.body.username) {
                     response.redirect('/master_mainpg.html?' + `&username=${the_username}`); //Adds username to Total Points Page
                 }
-
                 else {
                     response.send('Invalid Login: Please hit the back button and try again'); //if password isn't equal to password existing in jsonn data, show error message
-
                 }
-
-
             }
-
         }
     }
 });
-
-
-
 */
