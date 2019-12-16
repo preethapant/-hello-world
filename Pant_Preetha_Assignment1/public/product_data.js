@@ -1,4 +1,4 @@
-/*PREETHA PANT, 11/26/19*/
+/*PREETHA PANT, 11/14/19*/
 /* products array, listing all my products prices and corresponding images*/
 products = [
     {
