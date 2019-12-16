@@ -61,7 +61,7 @@ app.post("/webmasterLogin.html", function (request, response) {
 
 app.post("/registration.html", function (request, response) {
     // process a simple register form
-    console.log(flowerquant);
+    
   
     username = request.body.username;//retrieves the username data
     errors = {};//Checks to see if username already exists
@@ -113,28 +113,11 @@ app.post("/registration.html", function (request, response) {
     users_reg_data[username].points = request.body.points;
   
  fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //Writes registration info into the userdata json file
-
+ 
 
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path); //respond to HTTP request by sending type of request and the path of request
     next(); //calls the middleware function
-});
+}); }}) 
 app.use(express.static('./public')); //sets up a request to respond to GET and looks for the file from public (sets up static web server)
 app.listen(8080, () => console.log(`listening on port 8080`)); //listens on Port 8080
-
-
-
-
-/*
-   if (typeof users_reg_data[the_username].password == request.body.password) {
-                if (typeof users_reg_data[the_username].username == request.body.username) {
-                    response.redirect('/master_mainpg.html?' + `&username=${the_username}`); //Adds username to Total Points Page
-                }
-                else {
-                    response.send('Invalid Login: Please hit the back button and try again'); //if password isn't equal to password existing in jsonn data, show error message
-                }
-            }
-        }
-    }
-});
-*/
