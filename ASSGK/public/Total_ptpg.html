@@ -10,16 +10,33 @@
 
 <body>
   <table style="width:100%">
+    <div id="Username">
+      <h2>Your Username</h2>
+      <ul id="usernamelist">
+      </ul>
+  </div>
+  <div id="Points">
+    <h2>Your Points</h2>
+    <ul id="points">
+    </ul>
+</div>
+  <script>
+  var Username = document.getElementById("usernamelist");
+  Usernamelist.innerHTML = "<li>" + name + "</li>";
+  var Points = document.getElementById("points");
+  points.innerHTML = "<li>" + points + "</li>";
+  </script>
     <tr>
-      <th>Username</th><td> ${users_reg_data[the_username].fullname}</td>
+      <th> Your Username</th>
       
-      <th>Points</th><td> ${users_reg_data[the_username].totalpts}</td>
+      <th> Your Points</th>
     </tr>
+    
     <form name="List" method="POST"> 
             <div>
           <td> ${users_reg_data[the_username].fullname}</td>
               <td> ${users_reg_data[the_username].totalpts}</td>
-                <input type="submit" value="submit" id="submit">
+              
             </div>
         </form>
   
