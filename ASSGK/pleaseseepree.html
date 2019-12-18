@@ -20,24 +20,7 @@ if (fs.existsSync(filename)) {
 
 
 //GETS TO POINTS PAGE
-app.post("/login.html", function (request, response) {
-    the_username = request.body.username; //makes username 
-    //Validate login data
-    if (typeof users_reg_data[the_username] != 'undefined') {   //To check if the username exists in the json data
-        if (users_reg_data[the_username].password == request.body.password) {
 
-            response.redirect('/Total_ptpg.html?' + `&username=${the_username}`); //Adds username to Total Points Page
-        }
-
-        else {
-            response.send('Invalid Login: Please hit the back button and try again'); //if password isn't equal to password existing in jsonn data, show error message
-
-        }
-     
-
-    }
-
-});
 
 // Process login form POST and redirect to Total Points Page. If incorrect login info is inputted, show error
 app.post("/login.html", function (request, response) {
@@ -76,7 +59,7 @@ app.post("/webmasterLogin.html", function (request, response) {
     }
 });
 
-app.post("./registration.html", function (request, response) {
+app.post("/registration.html", function (request, response) {
     // process a simple register form
     
   
@@ -131,35 +114,6 @@ app.post("./registration.html", function (request, response) {
   
  fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //Writes registration info into the userdata json file
  
- app.post("/ptsadditionpage.html", function (request, response) {
-    the_username = request.body.username; //makes username 
-    errors= {};
-    
-    //Validate login data
-    if (Object.keys(errors).length == 0){
-users_reg_data[the_username].username = request.body.username
-console.log("1");
-users_reg_data[the_username].points = request.body.points
-response.send(users_reg_data[the_username].points);
-  
-fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //Writes registration info into the userdata json file
-console.log("3");
-   response.redirect("/Total_ptpg.html?" ); //If all good, send to the invoice page with username/quantity info
-        }
-    }
-);
-
-//DISPLAY GK MEMBER LIST
-app.post("/Total_ptpg.html", function (request, response) {
-    the_username = request.body.username; //makes username 
-  response.send(users_reg_data);
-
-//   response.send(users_reg_data.username[i]); Attempt to get only usernames to show up but i is not defined
-// response.send (users_reg_data[the_username].email}; attempt to get emails but nothing shows up
-//response.send(users_reg_data.password); Doesn't work
-//response.send(users_reg_data['itm352'].password); We only can retrieve the password from a specific user rather than all users
-// How to format using server????
-});
 
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path); //respond to HTTP request by sending type of request and the path of request
