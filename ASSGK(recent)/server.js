@@ -147,6 +147,7 @@ app.post("/Total_ptpg.html", function (request, response) {
         users_reg_data[username].password = request.body.password;
         users_reg_data[username].email = request.body.email;
         users_reg_data[username].fullname = request.body.fullname;
+        users_reg_data[username].points = request.body.points;
       
      fs.writeFileSync(filename, JSON.stringify(users_reg_data)); //Writes registration info into the userdata json file
      

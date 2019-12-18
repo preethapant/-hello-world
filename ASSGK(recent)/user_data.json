@@ -39,5 +39,11 @@
         "fullname": "Jayla Kaita",
         "usertype": "regular",
         "points": "320"
+    },
+    "preepant": {
+        "username": "preepant",
+        "password": "newmember1",
+        "email": "pree@hawaii.edu",
+        "fullname": "Preetha Pant"
     }
 }
