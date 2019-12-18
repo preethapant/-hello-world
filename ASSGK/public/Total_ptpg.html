@@ -1,0 +1,36 @@
+<html lang="en">
+
+<script>let params = (new URL(document.location)).searchParams;//Parses out the URL starting with the file name, quantity and purchase submit</script>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Members Points Display</title>
+</head>
+
+<body>
+  <header>
+    <h1>
+      <script>document.write(`You are logged in as ${params.get('username')}`);</script>
+    </h1>
+  </header>
+<script>
+ let request = new XMLHttpRequest();
+ request.open('GET', 'user_data.json', true);
+ request.onload = function () {
+  // Convert JSON data to an object
+  let users = JSON.parse(points.response);
+let output = '';
+  for (
+var i = 0; i < users.length; i++) {
+    output += '<li>' + fullname + ' has ' + fullname.points; '</li>'
+  }
+  document.getElementById('fullname').innerHTML = output;
+}
+ </script>
+
+</body>
+
+</html>

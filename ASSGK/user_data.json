@@ -1,0 +1,71 @@
+{
+    "ebmember": {
+        "password": "golden",
+        "email": "gk@hawaii.edu",
+        "fullname": "Executive Board Member",
+        "usertype": "Webmaster"
+    },
+    "dport": {
+        "name": "Dan Port",
+        "password": "portspassword",
+        "email": "dport@hawaii.edu"
+    },
+    "kazman": {
+        "name": "Rick Kazman",
+        "password": "kazmanpassword",
+        "email": "kazman@hawaii.edu",
+        "username": "kazman",
+        "points": "3000"
+    },
+    "itm352": {
+        "name": "ITM 352",
+        "password": "grader",
+        "email": "itm352@hawaii.edu"
+    },
+    "msyago": {
+        "username": "msyago",
+        "password": "doggy600",
+        "email": "msyago@hawaii.edu",
+        "fullname": "Melissa Yago",
+        "usertype": "Webmaster",
+        "points": "342"
+    },
+    "jaylakai": {
+        "username": "jaylakai",
+        "password": "123456",
+        "email": "jaylakai@hawaii.edu",
+        "fullname": "Jayla Kaita",
+        "usertype": "regular"
+    },
+    "asfkda": {
+        "username": "asfkda",
+        "password": "melissa",
+        "email": "msyago@hawaii.edu",
+        "fullname": "bob jim"
+    },
+    "asdf": {
+        "username": "asdf",
+        "password": "melissa",
+        "email": "msyago@hawaii.edu"
+    },
+    "bill": {
+        "username": "bill",
+        "password": "melissa",
+        "email": "bill@gmail.com",
+        "fullname": "100"
+    },
+    "billybob": {
+        "username": "billybob",
+        "password": "melissa",
+        "email": "bill@gmail.com",
+        "fullname": "billy bob",
+        "points": "100"
+    },
+    "jimbob": {
+        "username": "jimbob",
+        "password": "melissa",
+        "email": "bill@gmail.com",
+        "fullname": "bill hank",
+        "points": "0"
+    }
+}
