@@ -10,7 +10,7 @@ h1 {
     text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
   } 
   h2 {
-      color:  blue;
+      color:  rgb(0, 55, 219);
       text-align: center;
       text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
   }
@@ -39,11 +39,11 @@ h1 {
   input {
     display: block;
     margin: 0 auto 0 auto;
-    color: blue;
+    color:  rgb(0, 55, 219);
   }
   /*invoice*/
   table{
-    color: rgb(96, 0, 134);
+    color:  rgb(0, 55, 219);
     text-align: center;
     border-color: lavender;
     margin-left: auto;
@@ -53,7 +53,7 @@ h1 {
   th, td {
     padding: 5px;
     text-align: center;
-    color: white;
-    background:  rgb(212, 212, 248);
+    color: gold;
+    background:   rgb(0, 55, 219);
   }
  
