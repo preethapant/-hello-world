@@ -1,0 +1,31 @@
+<script>
+    let params = (new URL(document.location)).searchParams;
+</script>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>General Members' Points Page</title>
+</head>
+
+<body>
+    <style>
+        h1 {
+            color: rgb(0, 55, 219);
+            text-align: center;
+
+        }
+
+        body {
+            background: gold;
+        }
+    </style>
+    <img src="images/GK.jpeg">
+    <h2>
+        <script>document.write(`You currently have ${params.get('totalpts')}`);</script>
+    </h2>
+</body>
+
+</html>

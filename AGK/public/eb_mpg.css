@@ -1,0 +1,65 @@
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: gold;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 55, 219);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: rgb(255, 196, 0);
+}
+
+.active {
+  background-color: white;
+}
+
+h1{
+  color: rgb(0, 55, 219);
+  margin-top: 80px;
+  text-align: center;
+}
+
+form{
+  margin-top: 100px;
+}
+
+input{
+  padding: 10px;
+  display: block;
+  margin: 0 auto 0 auto;
+  color: blue;
+  
+}
+
+table{
+  margin-top: 100px;
+  background-color: gold;
+}
+
+tbody{
+  margin-top: 100px;
+  background-color: gold;
+}
+
+body{
+  margin-top: 100px;
+  background-color: gold;
+}

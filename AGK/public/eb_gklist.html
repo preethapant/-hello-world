@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>List of Members</title>
+  <link href="eb_mpg.css" rel="stylesheet">
+</head>
+<ul class="topnav">
+  <li><a href="./eb_mainpg.html">Home</a></li>
+  <li><a class="active" href="./eb_gklist.html">List of GK Members</a></li>
+  <li><a href="./eb_regpg.html">Register New Member</a></li>
+  <li><a href="./eb_ptlog.html">Add Points to a Member</a></li>
+</ul>
+
+<body>
+  <table style="width:100%">
+  <tbody>
+    <tr>
+      <th>Username</th>
+      <th>Points</th>
+    </tr>
+    <tr>
+      <form name="List" method="post">
+        <div>
+          
+            <td><script>$(users_reg_data[the_username].fullname);</script></td>
+            <td><script>$(users_reg_data[the_username].totalpts);</script></td>
+          
+          <input type="submit" value="submit" id="submit"></div>
+      </form>
+    </tr>
+  </tbody>
+  </table>
+</body>
+</html>

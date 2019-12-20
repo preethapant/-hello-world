@@ -1,0 +1,59 @@
+/* Description: A CSS page that styles the html pages. */
+/*Jayla Kaita & Melissa Yago 12/1/19*/
+/*products page*/
+
+h1 {
+    color: rgb(0, 55, 219);
+    text-align: center;
+    font-style: inherit;
+    font-display: inherit;
+    text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
+  } 
+  h2 {
+      color:  blue;
+      text-align: center;
+      text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
+  }
+  /*page background*/
+  body {
+      
+      background: gold; 
+      background-repeat: no-repeat; 
+      background-size: cover; 
+  }
+  /*pictures of flowers*/
+  img
+  {
+    width: 200px;
+    height: 200px;
+    border: 3px solid rgb(0, 55, 219);
+  }
+  
+  div {
+    align-content: center;
+    text-align: center;
+    color: palevioletred;
+  }
+  /*purchase submit button*/
+  
+  input {
+    display: block;
+    margin: 0 auto 0 auto;
+    color: blue;
+  }
+  /*invoice*/
+  table{
+    color: rgb(96, 0, 134);
+    text-align: center;
+    border-color: lavender;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /*invoice table*/
+  th, td {
+    padding: 5px;
+    text-align: center;
+    color: white;
+    background:  rgb(212, 212, 248);
+  }
+ 
